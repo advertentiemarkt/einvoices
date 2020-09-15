@@ -1,17 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html class="my-account">
+
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8" />
     <title></title>
+    <link href="../redirect.css" rel="stylesheet">
 </head>
+
 <body>
-<h1 id="waiting">Waiting...</h1>
+<div class="rmgSpinner">
+    <div class="rmgSpinner-inner"></div>
+</div>
+<!--
+<header role="main">
+    <div class="c-logo"><a><img src="../logo-r-rmg.png"/></a></div>
+    <div class="c-logo-name"><a>Roularta Media Group</a></div>
+</header>
+<div class="callback"></div>
+-->
+<!--<h1 id="waiting">Waiting...</h1>-->
 <div id="error"></div>
-<script src="https://cdn-stg.miaaguard.com/rmg2bp2jvfu242/widget/Knack/js/oidc-client.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/oidc-client/1.6.1/oidc-client.min.js"></script>
 </body>
 <script>
     var Oidc = window.Oidc;
     var UserManager = Oidc.UserManager;
-    new UserManager().signinPopupCallback();
+
+    if (Oidc && Oidc.Log && Oidc.Log.logger) {
+        Oidc.Log.logger = console;
+    }
+
+    new UserManager({ response_mode: 'query', audience: 'entity' }).signinRedirectCallback()
+        .then(function (user) {
+            window.location = user.state;
+        });
 </script>
+
 </html>

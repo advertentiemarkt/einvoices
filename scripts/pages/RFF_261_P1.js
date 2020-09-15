@@ -7,12 +7,14 @@ Rmg.Einvoices.Page1 = Rmg.Einvoices.Page1 || {}
 
 var token
 var miaaLoaded
-var baseUrl = document.location.origin + document.location.pathname
-var popupRedirect = baseUrl.slice(0, -1) + 'callback.html'
-var silentRedirect = baseUrl.slice(0, -1) + 'callback_silent.html'
-var postLogoutRedirect = baseUrl.slice(0, -1) + 'callback_signout.html'
+var baseUrl = 'https://cdn.jsdelivr.net/gh/advertentiemarkt/einvoices@1.1/'
+// var baseUrl = document.location.origin + document.location.pathname
+var popupRedirect = baseUrl.slice(0, -1) + 'sso/redirect/callback.html'
+var silentRedirect = baseUrl.slice(0, -1) + 'sso/redirect/callback_silent.html'
+var postLogoutRedirect = baseUrl.slice(0, -1) + 'sso/redirect/callback_signout.html'
 
 Rmg.Einvoices.Page1.loadTheLogin = function (regionToEmbed, contentRegion) {
+  console.log('Load the login triggered')
   Rmg.Einvoices.Page1.hideRegion(regionToEmbed)
   Rmg.Einvoices.Page1.hideRegion(contentRegion)
 
@@ -143,7 +145,7 @@ Rmg.Einvoices.Page1.startMiaa = function (region) {
         }
       },
       displaySettings: {
-        showBrandLogo: false,
+        showBrandLogo: true,
         showIntroText: false,
         showTitle: true,
         showGoBack: true
